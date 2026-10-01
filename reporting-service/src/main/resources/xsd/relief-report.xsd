@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://drrcp.com/reporting"
+           xmlns:tns="http://drrcp.com/reporting"
+           elementFormDefault="qualified">
+
+    <xs:element name="ReliefStatusReportRequest" type="tns:ReliefStatusReportRequestType"/>
+    <xs:element name="ReliefStatusReportResponse" type="tns:ReliefStatusReportResponseType"/>
+
+    <xs:complexType name="ReliefStatusReportRequestType">
+        <xs:sequence>
+            <xs:element name="districtName" type="xs:string"/>
+            <xs:element name="fromDate" type="xs:date"/>
+            <xs:element name="toDate" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ResourceAllocationType">
+        <xs:sequence>
+            <xs:element name="resourceName" type="xs:string"/>
+            <xs:element name="quantityAllocated" type="xs:int"/>
+            <xs:element name="shelterId" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ReliefStatusReportResponseType">
+        <xs:sequence>
+            <xs:element name="totalVictimsRegistered" type="xs:long"/>
+            <xs:element name="totalSheltersActive" type="xs:long"/>
+            <xs:element name="totalOccupancy" type="xs:long"/>
+            <xs:element name="resourceAllocations" type="tns:ResourceAllocationType"
+                        minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="volunteersDispatched" type="xs:long"/>
+            <xs:element name="generatedAt" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

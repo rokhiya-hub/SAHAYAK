@@ -1,0 +1,12 @@
+**/target/
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/.env
+**/.env.*
+!**/.env.example
+**/*.local
+**/*.log
+**/logs/
+.DS_Store
+Thumbs.db

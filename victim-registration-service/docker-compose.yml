@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: sahayak
+      POSTGRES_USER: sahayak
+      POSTGRES_PASSWORD: sahayak
+    ports:
+      - "5433:5432"
+    volumes:
+      - victim-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sahayak -d sahayak"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/sahayak
+      DB_USERNAME: sahayak
+      DB_PASSWORD: sahayak
+      JWT_SECRET: ${JWT_SECRET:-change-me-change-me-change-me-change-me-change-me!}
+      SHELTER_SERVICE_URL: ${SHELTER_SERVICE_URL:-http://host.docker.internal:8082}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  victim-pgdata:
